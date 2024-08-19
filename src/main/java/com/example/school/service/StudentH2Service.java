@@ -54,15 +54,25 @@ public class StudentH2Service implements StudentRepository {
     }
 
     @Override
+    public String addStudents(ArrayList<Student> studentsList) {
+        for (Student student : studentsList) {
+            db.update("insert into student(studentName,gender,standard) values(?,?,?)",
+                    student.getStudentName(), student.getGender(), student.getStandard());
+        }
+        String result = "Successfully added " + String.valueOf(studentsList.size()) + "students";
+        return result;
+    }
+
+    @Override
     public Student updateStudent(int studentId, Student student) {
         if (student.getStudentName() != null) {
-            db.update("update student set studentName=? where studentId=?", studentId);
+            db.update("update student set studentName=? where studentId=?", student.getStudentName(), studentId);
         }
         if (student.getGender() != null) {
-            db.update("update student set gender=? where studentId=?", studentId);
+            db.update("update student set gender=? where studentId=?", student.getGender(), studentId);
         }
         if (student.getStandard() != 0) {
-            db.update("update student set standard=? where studentId=?", studentId);
+            db.update("update student set standard=? where studentId=?", student.getStandard(), studentId);
         }
         return getStudentById(studentId);
     }

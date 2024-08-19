@@ -36,6 +36,11 @@ public class StudentController {
         return studentService.addStudent(student);
     }
 
+    @PostMapping("/students/bulk")
+    public String addStudents(@RequestBody ArrayList<Student> studentsList) {
+        return studentService.addStudents(studentsList);
+    }
+
     @PutMapping("/students/{studentId}")
     public Student updateStudent(@PathVariable("studentId") int studentId, @RequestBody Student student) {
         return studentService.updateStudent(studentId, student);
